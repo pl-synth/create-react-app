@@ -38,6 +38,8 @@ const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
 // @remove-on-eject-end
 const postcssNormalize = require('postcss-normalize');
 
+const gitRevSync = require('git-rev-sync');
+
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
@@ -570,6 +572,16 @@ module.exports = function(webpackEnv) {
       // during a production build.
       // Otherwise React will be compiled in the very slow development mode.
       new webpack.DefinePlugin(env.stringified),
+      // Add git-rev-sync to process.env
+      new webpack.DefinePlugin({
+        'process.env':{
+          'SHASHORT': JSON.stringify(gitRevSync.short()),
+          'SHALONG': JSON.stringify(gitRevSync.long()),
+          'BRANCH': JSON.stringify(gitRevSync.branch()),
+          'DATE': JSON.stringify(gitRevSync.date()),
+          'MESSAGE': JSON.stringify(gitRevSync.message()),
+        }
+      }),
       // This is necessary to emit hot updates (currently CSS only):
       isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
       // Watcher doesn't work well if you mistype casing in a path so we use
