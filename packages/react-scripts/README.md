@@ -1,3 +1,7 @@
+Important!
+This is a fork from Facebooks original repo [create-react-app](https://github.com/facebook/create-react-app).<br>
+This repo can be found [here](https://github.com/pl-synth/create-react-app).
+
 # react-scripts
 
 This package includes scripts and configuration used by [Create React App](https://github.com/facebook/create-react-app).<br>
